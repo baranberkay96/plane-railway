@@ -1,5 +1,7 @@
 # Deploy and Host Plane with Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/plane-v1-project-hub)
+
 Plane is an open-source project management tool for issues, cycles (sprints), modules, pages and roadmaps. This community template deploys the full Plane community edition on Railway as separate services from the official images, with Postgres, Redis, RabbitMQ and a Railway Bucket, behind one domain and with no per-seat fees.
 
 ## About Hosting Plane
