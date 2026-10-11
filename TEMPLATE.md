@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Name | **Plane v1 Project Hub** (version label `v1` = Plane major version; Plane tags releases `v1.x.y`) |
-| Description | Issues, sprints, docs and roadmaps for your team. Full Plane stack, no seat fees. (81 chars, unchanged from LISTINGS.md) |
+| Description | Issues, sprints, docs and roadmaps. Full Plane stack, no per-seat fees. (81 chars, unchanged from LISTINGS.md) |
 | Category | Other |
 | Tags | plane, project-management, issues, jira-alternative, linear-alternative, kanban |
 | User input at deploy | **None.** All secrets are generated. SMTP, OAuth and other instance settings are configured in Plane's admin UI (`/god-mode`). |

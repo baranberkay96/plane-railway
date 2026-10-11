@@ -1,785 +1,785 @@
 {
- "name": "Plane v1 Project Hub",
- "description": "Issues, sprints, docs and roadmaps for your team. Full Plane stack, no seat fees.",
- "category": "Other",
- "tags": [
-  "plane",
-  "project-management",
-  "issues",
-  "jira-alternative",
-  "linear-alternative",
-  "kanban"
- ],
- "upstream": {
-  "repo": "makeplane/plane",
-  "version": "v1.4.2",
-  "checked": "2026-10-10"
- },
- "services": {
-  "proxy": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/caddy.svg",
-   "source": {
-    "repo": "baranberkay96/plane-railway",
-    "rootDirectory": "/services/proxy"
-   },
-   "startCommand": null,
-   "preDeployCommand": null,
-   "healthcheckPath": "/proxy-health",
-   "healthcheckTimeout": 60,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": true,
-   "targetPort": 8080,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "8080",
-     "description": "Port Caddy listens on (public domain target).",
-     "required": false
-    },
-    "WEB_UPSTREAM": {
-     "defaultValue": "${{web.RAILWAY_PRIVATE_DOMAIN}}:3000",
-     "description": "Main web app.",
-     "required": false
-    },
-    "SPACE_UPSTREAM": {
-     "defaultValue": "${{space.RAILWAY_PRIVATE_DOMAIN}}:3000",
-     "description": "Public spaces (/spaces).",
-     "required": false
-    },
-    "ADMIN_UPSTREAM": {
-     "defaultValue": "${{admin.RAILWAY_PRIVATE_DOMAIN}}:3000",
-     "description": "Instance admin (/god-mode).",
-     "required": false
-    },
-    "LIVE_UPSTREAM": {
-     "defaultValue": "${{live.RAILWAY_PRIVATE_DOMAIN}}:3000",
-     "description": "Live collaboration server (/live).",
-     "required": false
-    },
-    "API_UPSTREAM": {
-     "defaultValue": "${{api.RAILWAY_PRIVATE_DOMAIN}}:8000",
-     "description": "API (/api, /auth, /static).",
-     "required": false
-    },
-    "FILE_SIZE_LIMIT": {
-     "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
-     "description": "Max request body size in bytes (same as api).",
-     "required": false
-    }
-   }
+  "name": "Plane v1 Project Hub",
+  "description": "Issues, sprints, docs and roadmaps. Full Plane stack, no per-seat fees.",
+  "category": "Other",
+  "tags": [
+    "plane",
+    "project-management",
+    "issues",
+    "jira-alternative",
+    "linear-alternative",
+    "kanban"
+  ],
+  "upstream": {
+    "repo": "makeplane/plane",
+    "version": "v1.4.2",
+    "checked": "2026-10-10"
   },
-  "web": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-frontend:v1.4.2"
-   },
-   "startCommand": "/bin/sh -c \"sed -i -e 's/^worker_processes .*/worker_processes 2;/' -e 's/listen 3000;/listen 3000; listen [::]:3000;/' /etc/nginx/nginx.conf && nginx -t && exec nginx -g 'daemon off;'\"",
-   "preDeployCommand": null,
-   "healthcheckPath": "/",
-   "healthcheckTimeout": 120,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "3000",
-     "description": "Port the app listens on (private network; proxy target).",
-     "required": false
+  "services": {
+    "proxy": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/caddy.svg",
+      "source": {
+        "repo": "baranberkay96/plane-railway",
+        "rootDirectory": "/services/proxy"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": "/proxy-health",
+      "healthcheckTimeout": 60,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": true,
+      "targetPort": 8080,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "8080",
+          "description": "Port Caddy listens on (public domain target).",
+          "required": false
+        },
+        "WEB_UPSTREAM": {
+          "defaultValue": "${{web.RAILWAY_PRIVATE_DOMAIN}}:3000",
+          "description": "Main web app.",
+          "required": false
+        },
+        "SPACE_UPSTREAM": {
+          "defaultValue": "${{space.RAILWAY_PRIVATE_DOMAIN}}:3000",
+          "description": "Public spaces (/spaces).",
+          "required": false
+        },
+        "ADMIN_UPSTREAM": {
+          "defaultValue": "${{admin.RAILWAY_PRIVATE_DOMAIN}}:3000",
+          "description": "Instance admin (/god-mode).",
+          "required": false
+        },
+        "LIVE_UPSTREAM": {
+          "defaultValue": "${{live.RAILWAY_PRIVATE_DOMAIN}}:3000",
+          "description": "Live collaboration server (/live).",
+          "required": false
+        },
+        "API_UPSTREAM": {
+          "defaultValue": "${{api.RAILWAY_PRIVATE_DOMAIN}}:8000",
+          "description": "API (/api, /auth, /static).",
+          "required": false
+        },
+        "FILE_SIZE_LIMIT": {
+          "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
+          "description": "Max request body size in bytes (same as api).",
+          "required": false
+        }
+      }
+    },
+    "web": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-frontend:v1.4.2"
+      },
+      "startCommand": "/bin/sh -c \"sed -i -e 's/^worker_processes .*/worker_processes 2;/' -e 's/listen 3000;/listen 3000; listen [::]:3000;/' /etc/nginx/nginx.conf && nginx -t && exec nginx -g 'daemon off;'\"",
+      "preDeployCommand": null,
+      "healthcheckPath": "/",
+      "healthcheckTimeout": 120,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "3000",
+          "description": "Port the app listens on (private network; proxy target).",
+          "required": false
+        }
+      }
+    },
+    "admin": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-admin:v1.4.2"
+      },
+      "startCommand": "/bin/sh -c \"sed -i -e 's/^worker_processes .*/worker_processes 2;/' -e 's/listen 3000;/listen 3000; listen [::]:3000;/' /etc/nginx/nginx.conf && nginx -t && exec nginx -g 'daemon off;'\"",
+      "preDeployCommand": null,
+      "healthcheckPath": "/god-mode/",
+      "healthcheckTimeout": 120,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "3000",
+          "description": "Port the app listens on (private network; proxy target).",
+          "required": false
+        }
+      }
+    },
+    "space": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-space:v1.4.2"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": "/spaces/",
+      "healthcheckTimeout": 180,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "3000",
+          "description": "Port the app listens on (private network; proxy target).",
+          "required": false
+        }
+      }
+    },
+    "live": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-live:v1.4.2"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": "/live/health",
+      "healthcheckTimeout": 180,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "3000",
+          "description": "Port the live server listens on (private network; proxy target).",
+          "required": false
+        },
+        "API_BASE_URL": {
+          "defaultValue": "http://${{api.RAILWAY_PRIVATE_DOMAIN}}:8000",
+          "description": "Private API URL used by the live server.",
+          "required": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "${{Redis.REDIS_URL}}",
+          "description": "Redis pub/sub for collaborative editing.",
+          "required": false
+        },
+        "LIVE_SERVER_SECRET_KEY": {
+          "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
+          "description": "Shared secret with api.",
+          "required": false
+        },
+        "LIVE_BASE_PATH": {
+          "defaultValue": "/live",
+          "description": "Path prefix routed by the proxy.",
+          "required": false
+        }
+      }
+    },
+    "api": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-backend:v1.4.2"
+      },
+      "startCommand": "/bin/bash -c \"sed 's/--bind 0.0.0.0:/--bind [::]:/' ./bin/docker-entrypoint-api.sh > /tmp/docker-entrypoint-api.sh && exec bash /tmp/docker-entrypoint-api.sh\"",
+      "preDeployCommand": "/bin/bash -c \"python manage.py wait_for_db && python manage.py migrate --noinput\"",
+      "healthcheckPath": "/api/instances/",
+      "healthcheckTimeout": 600,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "PORT": {
+          "defaultValue": "8000",
+          "description": "Gunicorn port (private network; proxy target).",
+          "required": false
+        },
+        "GUNICORN_WORKERS": {
+          "defaultValue": "2",
+          "description": "Gunicorn/uvicorn worker processes for the API.",
+          "required": false
+        },
+        "DEBUG": {
+          "defaultValue": "0",
+          "description": "Django debug mode off.",
+          "required": false
+        },
+        "WEB_URL": {
+          "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Public URL of Plane (e-mail links, redirects). Update with a custom domain.",
+          "required": false
+        },
+        "CORS_ALLOWED_ORIGINS": {
+          "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Allowed browser origins; also used as CSRF trusted origins. Comma-separate extra domains.",
+          "required": false
+        },
+        "SECRET_KEY": {
+          "defaultValue": "${{secret(64)}}",
+          "description": "Django signing key (sessions, CSRF, password reset). Do not change after first boot.",
+          "required": false
+        },
+        "LIVE_SERVER_SECRET_KEY": {
+          "defaultValue": "${{secret(64)}}",
+          "description": "Shared secret between api and the live (collaboration) server.",
+          "required": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "${{Postgres.DATABASE_URL}}",
+          "description": "Postgres connection string (private network).",
+          "required": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "${{Redis.REDIS_URL}}",
+          "description": "Redis for cache and sessions.",
+          "required": false
+        },
+        "AMQP_URL": {
+          "defaultValue": "${{RabbitMQ.AMQP_URL}}",
+          "description": "RabbitMQ broker for Celery jobs.",
+          "required": false
+        },
+        "USE_MINIO": {
+          "defaultValue": "0",
+          "description": "0 = external S3 (Railway Bucket); browsers upload and download with presigned URLs.",
+          "required": false
+        },
+        "AWS_S3_ENDPOINT_URL": {
+          "defaultValue": "${{Bucket.ENDPOINT}}",
+          "description": "S3 endpoint (Railway Bucket).",
+          "required": false
+        },
+        "AWS_REGION": {
+          "defaultValue": "${{Bucket.REGION}}",
+          "description": "Bucket region (Railway Bucket).",
+          "required": false
+        },
+        "AWS_DEFAULT_REGION": {
+          "defaultValue": "${{Bucket.REGION}}",
+          "description": "Region for boto3 clients created without an explicit region.",
+          "required": false
+        },
+        "AWS_S3_BUCKET_NAME": {
+          "defaultValue": "${{Bucket.BUCKET}}",
+          "description": "Bucket name (Railway Bucket).",
+          "required": false
+        },
+        "AWS_ACCESS_KEY_ID": {
+          "defaultValue": "${{Bucket.ACCESS_KEY_ID}}",
+          "description": "Bucket access key.",
+          "required": false
+        },
+        "AWS_SECRET_ACCESS_KEY": {
+          "defaultValue": "${{Bucket.SECRET_ACCESS_KEY}}",
+          "description": "Bucket secret key.",
+          "required": false
+        },
+        "FILE_SIZE_LIMIT": {
+          "defaultValue": "5242880",
+          "description": "Max upload size in bytes (5 MB, Plane default). Also enforced by the proxy.",
+          "required": false
+        },
+        "API_KEY_RATE_LIMIT": {
+          "defaultValue": "60/minute",
+          "description": "Throttle for API-key requests.",
+          "required": false
+        },
+        "AUTHENTICATION_RATE_LIMIT": {
+          "defaultValue": "10/minute",
+          "description": "Per-IP throttle for anonymous sign-in / magic-link endpoints.",
+          "required": false
+        }
+      }
+    },
+    "worker": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-backend:v1.4.2"
+      },
+      "startCommand": "/bin/bash -c \"python manage.py wait_for_db && python manage.py wait_for_migrations && exec celery -A plane worker -l info --concurrency ${CELERY_WORKER_CONCURRENCY:-2}\"",
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "CELERY_WORKER_CONCURRENCY": {
+          "defaultValue": "2",
+          "description": "Celery prefork processes (default would be one per host CPU, far too many on Railway).",
+          "required": false
+        },
+        "DEBUG": {
+          "defaultValue": "${{api.DEBUG}}",
+          "description": "Shared backend setting: references api.DEBUG (edit it there).",
+          "required": false
+        },
+        "WEB_URL": {
+          "defaultValue": "${{api.WEB_URL}}",
+          "description": "Shared backend setting: references api.WEB_URL (edit it there).",
+          "required": false
+        },
+        "CORS_ALLOWED_ORIGINS": {
+          "defaultValue": "${{api.CORS_ALLOWED_ORIGINS}}",
+          "description": "Shared backend setting: references api.CORS_ALLOWED_ORIGINS (edit it there).",
+          "required": false
+        },
+        "SECRET_KEY": {
+          "defaultValue": "${{api.SECRET_KEY}}",
+          "description": "Shared backend setting: references api.SECRET_KEY (edit it there).",
+          "required": false
+        },
+        "LIVE_SERVER_SECRET_KEY": {
+          "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
+          "description": "Shared backend setting: references api.LIVE_SERVER_SECRET_KEY (edit it there).",
+          "required": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "${{api.DATABASE_URL}}",
+          "description": "Shared backend setting: references api.DATABASE_URL (edit it there).",
+          "required": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "${{api.REDIS_URL}}",
+          "description": "Shared backend setting: references api.REDIS_URL (edit it there).",
+          "required": false
+        },
+        "AMQP_URL": {
+          "defaultValue": "${{api.AMQP_URL}}",
+          "description": "Shared backend setting: references api.AMQP_URL (edit it there).",
+          "required": false
+        },
+        "USE_MINIO": {
+          "defaultValue": "${{api.USE_MINIO}}",
+          "description": "Shared backend setting: references api.USE_MINIO (edit it there).",
+          "required": false
+        },
+        "AWS_S3_ENDPOINT_URL": {
+          "defaultValue": "${{api.AWS_S3_ENDPOINT_URL}}",
+          "description": "Shared backend setting: references api.AWS_S3_ENDPOINT_URL (edit it there).",
+          "required": false
+        },
+        "AWS_REGION": {
+          "defaultValue": "${{api.AWS_REGION}}",
+          "description": "Shared backend setting: references api.AWS_REGION (edit it there).",
+          "required": false
+        },
+        "AWS_DEFAULT_REGION": {
+          "defaultValue": "${{api.AWS_DEFAULT_REGION}}",
+          "description": "Shared backend setting: references api.AWS_DEFAULT_REGION (edit it there).",
+          "required": false
+        },
+        "AWS_S3_BUCKET_NAME": {
+          "defaultValue": "${{api.AWS_S3_BUCKET_NAME}}",
+          "description": "Shared backend setting: references api.AWS_S3_BUCKET_NAME (edit it there).",
+          "required": false
+        },
+        "AWS_ACCESS_KEY_ID": {
+          "defaultValue": "${{api.AWS_ACCESS_KEY_ID}}",
+          "description": "Shared backend setting: references api.AWS_ACCESS_KEY_ID (edit it there).",
+          "required": false
+        },
+        "AWS_SECRET_ACCESS_KEY": {
+          "defaultValue": "${{api.AWS_SECRET_ACCESS_KEY}}",
+          "description": "Shared backend setting: references api.AWS_SECRET_ACCESS_KEY (edit it there).",
+          "required": false
+        },
+        "FILE_SIZE_LIMIT": {
+          "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
+          "description": "Shared backend setting: references api.FILE_SIZE_LIMIT (edit it there).",
+          "required": false
+        },
+        "API_KEY_RATE_LIMIT": {
+          "defaultValue": "${{api.API_KEY_RATE_LIMIT}}",
+          "description": "Shared backend setting: references api.API_KEY_RATE_LIMIT (edit it there).",
+          "required": false
+        },
+        "AUTHENTICATION_RATE_LIMIT": {
+          "defaultValue": "${{api.AUTHENTICATION_RATE_LIMIT}}",
+          "description": "Shared backend setting: references api.AUTHENTICATION_RATE_LIMIT (edit it there).",
+          "required": false
+        }
+      }
+    },
+    "beat-worker": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
+      "source": {
+        "image": "makeplane/plane-backend:v1.4.2"
+      },
+      "startCommand": "./bin/docker-entrypoint-beat.sh",
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "DEBUG": {
+          "defaultValue": "${{api.DEBUG}}",
+          "description": "Shared backend setting: references api.DEBUG (edit it there).",
+          "required": false
+        },
+        "WEB_URL": {
+          "defaultValue": "${{api.WEB_URL}}",
+          "description": "Shared backend setting: references api.WEB_URL (edit it there).",
+          "required": false
+        },
+        "CORS_ALLOWED_ORIGINS": {
+          "defaultValue": "${{api.CORS_ALLOWED_ORIGINS}}",
+          "description": "Shared backend setting: references api.CORS_ALLOWED_ORIGINS (edit it there).",
+          "required": false
+        },
+        "SECRET_KEY": {
+          "defaultValue": "${{api.SECRET_KEY}}",
+          "description": "Shared backend setting: references api.SECRET_KEY (edit it there).",
+          "required": false
+        },
+        "LIVE_SERVER_SECRET_KEY": {
+          "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
+          "description": "Shared backend setting: references api.LIVE_SERVER_SECRET_KEY (edit it there).",
+          "required": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "${{api.DATABASE_URL}}",
+          "description": "Shared backend setting: references api.DATABASE_URL (edit it there).",
+          "required": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "${{api.REDIS_URL}}",
+          "description": "Shared backend setting: references api.REDIS_URL (edit it there).",
+          "required": false
+        },
+        "AMQP_URL": {
+          "defaultValue": "${{api.AMQP_URL}}",
+          "description": "Shared backend setting: references api.AMQP_URL (edit it there).",
+          "required": false
+        },
+        "USE_MINIO": {
+          "defaultValue": "${{api.USE_MINIO}}",
+          "description": "Shared backend setting: references api.USE_MINIO (edit it there).",
+          "required": false
+        },
+        "AWS_S3_ENDPOINT_URL": {
+          "defaultValue": "${{api.AWS_S3_ENDPOINT_URL}}",
+          "description": "Shared backend setting: references api.AWS_S3_ENDPOINT_URL (edit it there).",
+          "required": false
+        },
+        "AWS_REGION": {
+          "defaultValue": "${{api.AWS_REGION}}",
+          "description": "Shared backend setting: references api.AWS_REGION (edit it there).",
+          "required": false
+        },
+        "AWS_DEFAULT_REGION": {
+          "defaultValue": "${{api.AWS_DEFAULT_REGION}}",
+          "description": "Shared backend setting: references api.AWS_DEFAULT_REGION (edit it there).",
+          "required": false
+        },
+        "AWS_S3_BUCKET_NAME": {
+          "defaultValue": "${{api.AWS_S3_BUCKET_NAME}}",
+          "description": "Shared backend setting: references api.AWS_S3_BUCKET_NAME (edit it there).",
+          "required": false
+        },
+        "AWS_ACCESS_KEY_ID": {
+          "defaultValue": "${{api.AWS_ACCESS_KEY_ID}}",
+          "description": "Shared backend setting: references api.AWS_ACCESS_KEY_ID (edit it there).",
+          "required": false
+        },
+        "AWS_SECRET_ACCESS_KEY": {
+          "defaultValue": "${{api.AWS_SECRET_ACCESS_KEY}}",
+          "description": "Shared backend setting: references api.AWS_SECRET_ACCESS_KEY (edit it there).",
+          "required": false
+        },
+        "FILE_SIZE_LIMIT": {
+          "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
+          "description": "Shared backend setting: references api.FILE_SIZE_LIMIT (edit it there).",
+          "required": false
+        },
+        "API_KEY_RATE_LIMIT": {
+          "defaultValue": "${{api.API_KEY_RATE_LIMIT}}",
+          "description": "Shared backend setting: references api.API_KEY_RATE_LIMIT (edit it there).",
+          "required": false
+        },
+        "AUTHENTICATION_RATE_LIMIT": {
+          "defaultValue": "${{api.AUTHENTICATION_RATE_LIMIT}}",
+          "description": "Shared backend setting: references api.AUTHENTICATION_RATE_LIMIT (edit it there).",
+          "required": false
+        }
+      }
+    },
+    "Postgres": {
+      "icon": "https://devicons.railway.app/i/postgresql.svg",
+      "source": {
+        "image": "ghcr.io/railwayapp-templates/postgres-ssl:18"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": {
+        "mountPath": "/var/lib/postgresql/data"
+      },
+      "variables": {
+        "PGDATA": {
+          "defaultValue": "/var/lib/postgresql/data/pgdata",
+          "description": "Location where the database will be initialized.",
+          "required": false
+        },
+        "PGHOST": {
+          "defaultValue": "${{RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "Railway Private Domain Name.",
+          "required": false
+        },
+        "PGPORT": {
+          "defaultValue": "5432",
+          "description": "Port to connect to Postgres.",
+          "required": false
+        },
+        "PGUSER": {
+          "defaultValue": "${{ POSTGRES_USER }}",
+          "description": "Required variable for Data panel.",
+          "required": false
+        },
+        "PGDATABASE": {
+          "defaultValue": "${{POSTGRES_DB}}",
+          "description": "Required variable for the data panel.",
+          "required": false
+        },
+        "PGPASSWORD": {
+          "defaultValue": "${{POSTGRES_PASSWORD}}",
+          "description": "Required variable for Data panel.",
+          "required": false
+        },
+        "POSTGRES_DB": {
+          "defaultValue": "railway",
+          "description": "Default database created when image is started.",
+          "required": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}",
+          "description": "URL to connect to Postgres database.",
+          "required": false
+        },
+        "POSTGRES_USER": {
+          "defaultValue": "postgres",
+          "description": "User to connect to Postgres DB.",
+          "required": false
+        },
+        "SSL_CERT_DAYS": {
+          "defaultValue": "820",
+          "description": "SSL certificate expiry in days.",
+          "required": false
+        },
+        "POSTGRES_PASSWORD": {
+          "defaultValue": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}",
+          "description": "Password to connect to DB.",
+          "required": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Allow Postgres to cleanly shut down.",
+          "required": false
+        }
+      }
+    },
+    "Redis": {
+      "icon": "https://cdn.sanity.io/images/sy1jschh/production/0ce0bfdcfbdbf69662b1116671f97c2dd788b655-157x157.svg",
+      "source": {
+        "image": "redis:8.2"
+      },
+      "startCommand": "/bin/sh -c \"rm -rf $RAILWAY_VOLUME_MOUNT_PATH/lost+found/ && exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --save 60 1 --dir $RAILWAY_VOLUME_MOUNT_PATH\"",
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": {
+        "mountPath": "/data"
+      },
+      "variables": {
+        "REDISHOST": {
+          "defaultValue": "${{RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "Private network hostname of the Redis service, only resolvable from services in the same environment.",
+          "required": false
+        },
+        "REDISPORT": {
+          "defaultValue": "6379",
+          "description": "Port that Redis listens on.",
+          "required": false
+        },
+        "REDISUSER": {
+          "defaultValue": "default",
+          "description": "Username for authenticating with Redis.",
+          "required": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "redis://${{ REDISUSER }}:${{ REDIS_PASSWORD }}@${{ REDISHOST }}:${{ REDISPORT }}",
+          "description": "Connection string for connecting to Redis using the private network.",
+          "required": false
+        },
+        "REDISPASSWORD": {
+          "defaultValue": "${{REDIS_PASSWORD}}",
+          "description": "Alias of REDIS_PASSWORD for clients that expect the unseparated name.",
+          "required": false
+        },
+        "REDIS_PASSWORD": {
+          "defaultValue": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}",
+          "description": "Randomly generated password for authenticating with Redis.",
+          "required": false
+        }
+      }
+    },
+    "RabbitMQ": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/rabbitmq.svg",
+      "source": {
+        "image": "rabbitmq:3.13.7-management-alpine"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "ON_FAILURE",
+      "restartPolicyMaxRetries": 10,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": {
+        "mountPath": "/var/lib/rabbitmq"
+      },
+      "variables": {
+        "RABBITMQ_DEFAULT_USER": {
+          "defaultValue": "plane",
+          "description": "Broker user created on first boot.",
+          "required": false
+        },
+        "RABBITMQ_DEFAULT_PASS": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Broker password (generated).",
+          "required": false
+        },
+        "RABBITMQ_DEFAULT_VHOST": {
+          "defaultValue": "plane",
+          "description": "Broker virtual host.",
+          "required": false
+        },
+        "RABBITMQ_NODENAME": {
+          "defaultValue": "rabbit@localhost",
+          "description": "Fixed node name so the data on the volume survives redeploys (container hostnames change).",
+          "required": false
+        },
+        "RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS": {
+          "defaultValue": "+S 2:2 +SDio 2",
+          "description": "Limit Erlang schedulers to 2 (the VM otherwise sizes itself to the host's CPU count).",
+          "required": false
+        },
+        "AMQP_URL": {
+          "defaultValue": "amqp://${{RABBITMQ_DEFAULT_USER}}:${{RABBITMQ_DEFAULT_PASS}}@${{RAILWAY_PRIVATE_DOMAIN}}:5672/${{RABBITMQ_DEFAULT_VHOST}}",
+          "description": "Connection string for Celery (private network).",
+          "required": false
+        }
+      }
+    },
+    "bucket-cors": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/aws.svg",
+      "source": {
+        "image": "amazon/aws-cli:2.37.12"
+      },
+      "startCommand": "/bin/sh -c \"aws s3api put-bucket-cors --bucket $BUCKET_NAME --endpoint-url $S3_ENDPOINT --region $S3_REGION --cors-configuration \\\"$CORS_CONFIGURATION\\\" && echo 'Bucket CORS configured for' $PUBLIC_ORIGIN\"",
+      "preDeployCommand": null,
+      "healthcheckPath": null,
+      "healthcheckTimeout": null,
+      "restartPolicyType": "NEVER",
+      "restartPolicyMaxRetries": null,
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": false,
+      "targetPort": null,
+      "tcpProxy": null,
+      "volume": null,
+      "variables": {
+        "AWS_ACCESS_KEY_ID": {
+          "defaultValue": "${{Bucket.ACCESS_KEY_ID}}",
+          "description": "Bucket access key.",
+          "required": false
+        },
+        "AWS_SECRET_ACCESS_KEY": {
+          "defaultValue": "${{Bucket.SECRET_ACCESS_KEY}}",
+          "description": "Bucket secret key.",
+          "required": false
+        },
+        "BUCKET_NAME": {
+          "defaultValue": "${{Bucket.BUCKET}}",
+          "description": "Bucket to configure.",
+          "required": false
+        },
+        "S3_ENDPOINT": {
+          "defaultValue": "${{Bucket.ENDPOINT}}",
+          "description": "Bucket S3 endpoint.",
+          "required": false
+        },
+        "S3_REGION": {
+          "defaultValue": "${{Bucket.REGION}}",
+          "description": "Bucket region.",
+          "required": false
+        },
+        "PUBLIC_ORIGIN": {
+          "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Plane's public origin (for the log line).",
+          "required": false
+        },
+        "CORS_CONFIGURATION": {
+          "defaultValue": "{\"CORSRules\":[{\"AllowedOrigins\":[\"https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}\"],\"AllowedMethods\":[\"GET\",\"HEAD\",\"PUT\",\"POST\"],\"AllowedHeaders\":[\"*\"],\"ExposeHeaders\":[\"ETag\"],\"MaxAgeSeconds\":3600}]}",
+          "description": "CORS rule letting browsers on Plane's domain upload to / read from the bucket with presigned URLs. Add custom domains to AllowedOrigins and redeploy this service.",
+          "required": false
+        }
+      }
     }
-   }
   },
-  "admin": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-admin:v1.4.2"
-   },
-   "startCommand": "/bin/sh -c \"sed -i -e 's/^worker_processes .*/worker_processes 2;/' -e 's/listen 3000;/listen 3000; listen [::]:3000;/' /etc/nginx/nginx.conf && nginx -t && exec nginx -g 'daemon off;'\"",
-   "preDeployCommand": null,
-   "healthcheckPath": "/god-mode/",
-   "healthcheckTimeout": 120,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "3000",
-     "description": "Port the app listens on (private network; proxy target).",
-     "required": false
-    }
-   }
-  },
-  "space": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-space:v1.4.2"
-   },
-   "startCommand": null,
-   "preDeployCommand": null,
-   "healthcheckPath": "/spaces/",
-   "healthcheckTimeout": 180,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "3000",
-     "description": "Port the app listens on (private network; proxy target).",
-     "required": false
-    }
-   }
-  },
-  "live": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-live:v1.4.2"
-   },
-   "startCommand": null,
-   "preDeployCommand": null,
-   "healthcheckPath": "/live/health",
-   "healthcheckTimeout": 180,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "3000",
-     "description": "Port the live server listens on (private network; proxy target).",
-     "required": false
-    },
-    "API_BASE_URL": {
-     "defaultValue": "http://${{api.RAILWAY_PRIVATE_DOMAIN}}:8000",
-     "description": "Private API URL used by the live server.",
-     "required": false
-    },
-    "REDIS_URL": {
-     "defaultValue": "${{Redis.REDIS_URL}}",
-     "description": "Redis pub/sub for collaborative editing.",
-     "required": false
-    },
-    "LIVE_SERVER_SECRET_KEY": {
-     "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
-     "description": "Shared secret with api.",
-     "required": false
-    },
-    "LIVE_BASE_PATH": {
-     "defaultValue": "/live",
-     "description": "Path prefix routed by the proxy.",
-     "required": false
-    }
-   }
-  },
-  "api": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-backend:v1.4.2"
-   },
-   "startCommand": "/bin/bash -c \"sed 's/--bind 0.0.0.0:/--bind [::]:/' ./bin/docker-entrypoint-api.sh > /tmp/docker-entrypoint-api.sh && exec bash /tmp/docker-entrypoint-api.sh\"",
-   "preDeployCommand": "/bin/bash -c \"python manage.py wait_for_db && python manage.py migrate --noinput\"",
-   "healthcheckPath": "/api/instances/",
-   "healthcheckTimeout": 600,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "PORT": {
-     "defaultValue": "8000",
-     "description": "Gunicorn port (private network; proxy target).",
-     "required": false
-    },
-    "GUNICORN_WORKERS": {
-     "defaultValue": "2",
-     "description": "Gunicorn/uvicorn worker processes for the API.",
-     "required": false
-    },
-    "DEBUG": {
-     "defaultValue": "0",
-     "description": "Django debug mode off.",
-     "required": false
-    },
-    "WEB_URL": {
-     "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
-     "description": "Public URL of Plane (e-mail links, redirects). Update with a custom domain.",
-     "required": false
-    },
-    "CORS_ALLOWED_ORIGINS": {
-     "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
-     "description": "Allowed browser origins; also used as CSRF trusted origins. Comma-separate extra domains.",
-     "required": false
-    },
-    "SECRET_KEY": {
-     "defaultValue": "${{secret(64)}}",
-     "description": "Django signing key (sessions, CSRF, password reset). Do not change after first boot.",
-     "required": false
-    },
-    "LIVE_SERVER_SECRET_KEY": {
-     "defaultValue": "${{secret(64)}}",
-     "description": "Shared secret between api and the live (collaboration) server.",
-     "required": false
-    },
-    "DATABASE_URL": {
-     "defaultValue": "${{Postgres.DATABASE_URL}}",
-     "description": "Postgres connection string (private network).",
-     "required": false
-    },
-    "REDIS_URL": {
-     "defaultValue": "${{Redis.REDIS_URL}}",
-     "description": "Redis for cache and sessions.",
-     "required": false
-    },
-    "AMQP_URL": {
-     "defaultValue": "${{RabbitMQ.AMQP_URL}}",
-     "description": "RabbitMQ broker for Celery jobs.",
-     "required": false
-    },
-    "USE_MINIO": {
-     "defaultValue": "0",
-     "description": "0 = external S3 (Railway Bucket); browsers upload and download with presigned URLs.",
-     "required": false
-    },
-    "AWS_S3_ENDPOINT_URL": {
-     "defaultValue": "${{Bucket.ENDPOINT}}",
-     "description": "S3 endpoint (Railway Bucket).",
-     "required": false
-    },
-    "AWS_REGION": {
-     "defaultValue": "${{Bucket.REGION}}",
-     "description": "Bucket region (Railway Bucket).",
-     "required": false
-    },
-    "AWS_DEFAULT_REGION": {
-     "defaultValue": "${{Bucket.REGION}}",
-     "description": "Region for boto3 clients created without an explicit region.",
-     "required": false
-    },
-    "AWS_S3_BUCKET_NAME": {
-     "defaultValue": "${{Bucket.BUCKET}}",
-     "description": "Bucket name (Railway Bucket).",
-     "required": false
-    },
-    "AWS_ACCESS_KEY_ID": {
-     "defaultValue": "${{Bucket.ACCESS_KEY_ID}}",
-     "description": "Bucket access key.",
-     "required": false
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-     "defaultValue": "${{Bucket.SECRET_ACCESS_KEY}}",
-     "description": "Bucket secret key.",
-     "required": false
-    },
-    "FILE_SIZE_LIMIT": {
-     "defaultValue": "5242880",
-     "description": "Max upload size in bytes (5 MB, Plane default). Also enforced by the proxy.",
-     "required": false
-    },
-    "API_KEY_RATE_LIMIT": {
-     "defaultValue": "60/minute",
-     "description": "Throttle for API-key requests.",
-     "required": false
-    },
-    "AUTHENTICATION_RATE_LIMIT": {
-     "defaultValue": "10/minute",
-     "description": "Per-IP throttle for anonymous sign-in / magic-link endpoints.",
-     "required": false
-    }
-   }
-  },
-  "worker": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-backend:v1.4.2"
-   },
-   "startCommand": "/bin/bash -c \"python manage.py wait_for_db && python manage.py wait_for_migrations && exec celery -A plane worker -l info --concurrency ${CELERY_WORKER_CONCURRENCY:-2}\"",
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "CELERY_WORKER_CONCURRENCY": {
-     "defaultValue": "2",
-     "description": "Celery prefork processes (default would be one per host CPU, far too many on Railway).",
-     "required": false
-    },
-    "DEBUG": {
-     "defaultValue": "${{api.DEBUG}}",
-     "description": "Shared backend setting: references api.DEBUG (edit it there).",
-     "required": false
-    },
-    "WEB_URL": {
-     "defaultValue": "${{api.WEB_URL}}",
-     "description": "Shared backend setting: references api.WEB_URL (edit it there).",
-     "required": false
-    },
-    "CORS_ALLOWED_ORIGINS": {
-     "defaultValue": "${{api.CORS_ALLOWED_ORIGINS}}",
-     "description": "Shared backend setting: references api.CORS_ALLOWED_ORIGINS (edit it there).",
-     "required": false
-    },
-    "SECRET_KEY": {
-     "defaultValue": "${{api.SECRET_KEY}}",
-     "description": "Shared backend setting: references api.SECRET_KEY (edit it there).",
-     "required": false
-    },
-    "LIVE_SERVER_SECRET_KEY": {
-     "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
-     "description": "Shared backend setting: references api.LIVE_SERVER_SECRET_KEY (edit it there).",
-     "required": false
-    },
-    "DATABASE_URL": {
-     "defaultValue": "${{api.DATABASE_URL}}",
-     "description": "Shared backend setting: references api.DATABASE_URL (edit it there).",
-     "required": false
-    },
-    "REDIS_URL": {
-     "defaultValue": "${{api.REDIS_URL}}",
-     "description": "Shared backend setting: references api.REDIS_URL (edit it there).",
-     "required": false
-    },
-    "AMQP_URL": {
-     "defaultValue": "${{api.AMQP_URL}}",
-     "description": "Shared backend setting: references api.AMQP_URL (edit it there).",
-     "required": false
-    },
-    "USE_MINIO": {
-     "defaultValue": "${{api.USE_MINIO}}",
-     "description": "Shared backend setting: references api.USE_MINIO (edit it there).",
-     "required": false
-    },
-    "AWS_S3_ENDPOINT_URL": {
-     "defaultValue": "${{api.AWS_S3_ENDPOINT_URL}}",
-     "description": "Shared backend setting: references api.AWS_S3_ENDPOINT_URL (edit it there).",
-     "required": false
-    },
-    "AWS_REGION": {
-     "defaultValue": "${{api.AWS_REGION}}",
-     "description": "Shared backend setting: references api.AWS_REGION (edit it there).",
-     "required": false
-    },
-    "AWS_DEFAULT_REGION": {
-     "defaultValue": "${{api.AWS_DEFAULT_REGION}}",
-     "description": "Shared backend setting: references api.AWS_DEFAULT_REGION (edit it there).",
-     "required": false
-    },
-    "AWS_S3_BUCKET_NAME": {
-     "defaultValue": "${{api.AWS_S3_BUCKET_NAME}}",
-     "description": "Shared backend setting: references api.AWS_S3_BUCKET_NAME (edit it there).",
-     "required": false
-    },
-    "AWS_ACCESS_KEY_ID": {
-     "defaultValue": "${{api.AWS_ACCESS_KEY_ID}}",
-     "description": "Shared backend setting: references api.AWS_ACCESS_KEY_ID (edit it there).",
-     "required": false
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-     "defaultValue": "${{api.AWS_SECRET_ACCESS_KEY}}",
-     "description": "Shared backend setting: references api.AWS_SECRET_ACCESS_KEY (edit it there).",
-     "required": false
-    },
-    "FILE_SIZE_LIMIT": {
-     "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
-     "description": "Shared backend setting: references api.FILE_SIZE_LIMIT (edit it there).",
-     "required": false
-    },
-    "API_KEY_RATE_LIMIT": {
-     "defaultValue": "${{api.API_KEY_RATE_LIMIT}}",
-     "description": "Shared backend setting: references api.API_KEY_RATE_LIMIT (edit it there).",
-     "required": false
-    },
-    "AUTHENTICATION_RATE_LIMIT": {
-     "defaultValue": "${{api.AUTHENTICATION_RATE_LIMIT}}",
-     "description": "Shared backend setting: references api.AUTHENTICATION_RATE_LIMIT (edit it there).",
-     "required": false
-    }
-   }
-  },
-  "beat-worker": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plane.svg",
-   "source": {
-    "image": "makeplane/plane-backend:v1.4.2"
-   },
-   "startCommand": "./bin/docker-entrypoint-beat.sh",
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "DEBUG": {
-     "defaultValue": "${{api.DEBUG}}",
-     "description": "Shared backend setting: references api.DEBUG (edit it there).",
-     "required": false
-    },
-    "WEB_URL": {
-     "defaultValue": "${{api.WEB_URL}}",
-     "description": "Shared backend setting: references api.WEB_URL (edit it there).",
-     "required": false
-    },
-    "CORS_ALLOWED_ORIGINS": {
-     "defaultValue": "${{api.CORS_ALLOWED_ORIGINS}}",
-     "description": "Shared backend setting: references api.CORS_ALLOWED_ORIGINS (edit it there).",
-     "required": false
-    },
-    "SECRET_KEY": {
-     "defaultValue": "${{api.SECRET_KEY}}",
-     "description": "Shared backend setting: references api.SECRET_KEY (edit it there).",
-     "required": false
-    },
-    "LIVE_SERVER_SECRET_KEY": {
-     "defaultValue": "${{api.LIVE_SERVER_SECRET_KEY}}",
-     "description": "Shared backend setting: references api.LIVE_SERVER_SECRET_KEY (edit it there).",
-     "required": false
-    },
-    "DATABASE_URL": {
-     "defaultValue": "${{api.DATABASE_URL}}",
-     "description": "Shared backend setting: references api.DATABASE_URL (edit it there).",
-     "required": false
-    },
-    "REDIS_URL": {
-     "defaultValue": "${{api.REDIS_URL}}",
-     "description": "Shared backend setting: references api.REDIS_URL (edit it there).",
-     "required": false
-    },
-    "AMQP_URL": {
-     "defaultValue": "${{api.AMQP_URL}}",
-     "description": "Shared backend setting: references api.AMQP_URL (edit it there).",
-     "required": false
-    },
-    "USE_MINIO": {
-     "defaultValue": "${{api.USE_MINIO}}",
-     "description": "Shared backend setting: references api.USE_MINIO (edit it there).",
-     "required": false
-    },
-    "AWS_S3_ENDPOINT_URL": {
-     "defaultValue": "${{api.AWS_S3_ENDPOINT_URL}}",
-     "description": "Shared backend setting: references api.AWS_S3_ENDPOINT_URL (edit it there).",
-     "required": false
-    },
-    "AWS_REGION": {
-     "defaultValue": "${{api.AWS_REGION}}",
-     "description": "Shared backend setting: references api.AWS_REGION (edit it there).",
-     "required": false
-    },
-    "AWS_DEFAULT_REGION": {
-     "defaultValue": "${{api.AWS_DEFAULT_REGION}}",
-     "description": "Shared backend setting: references api.AWS_DEFAULT_REGION (edit it there).",
-     "required": false
-    },
-    "AWS_S3_BUCKET_NAME": {
-     "defaultValue": "${{api.AWS_S3_BUCKET_NAME}}",
-     "description": "Shared backend setting: references api.AWS_S3_BUCKET_NAME (edit it there).",
-     "required": false
-    },
-    "AWS_ACCESS_KEY_ID": {
-     "defaultValue": "${{api.AWS_ACCESS_KEY_ID}}",
-     "description": "Shared backend setting: references api.AWS_ACCESS_KEY_ID (edit it there).",
-     "required": false
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-     "defaultValue": "${{api.AWS_SECRET_ACCESS_KEY}}",
-     "description": "Shared backend setting: references api.AWS_SECRET_ACCESS_KEY (edit it there).",
-     "required": false
-    },
-    "FILE_SIZE_LIMIT": {
-     "defaultValue": "${{api.FILE_SIZE_LIMIT}}",
-     "description": "Shared backend setting: references api.FILE_SIZE_LIMIT (edit it there).",
-     "required": false
-    },
-    "API_KEY_RATE_LIMIT": {
-     "defaultValue": "${{api.API_KEY_RATE_LIMIT}}",
-     "description": "Shared backend setting: references api.API_KEY_RATE_LIMIT (edit it there).",
-     "required": false
-    },
-    "AUTHENTICATION_RATE_LIMIT": {
-     "defaultValue": "${{api.AUTHENTICATION_RATE_LIMIT}}",
-     "description": "Shared backend setting: references api.AUTHENTICATION_RATE_LIMIT (edit it there).",
-     "required": false
-    }
-   }
-  },
-  "Postgres": {
-   "icon": "https://devicons.railway.app/i/postgresql.svg",
-   "source": {
-    "image": "ghcr.io/railwayapp-templates/postgres-ssl:18"
-   },
-   "startCommand": null,
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": {
-    "mountPath": "/var/lib/postgresql/data"
-   },
-   "variables": {
-    "PGDATA": {
-     "defaultValue": "/var/lib/postgresql/data/pgdata",
-     "description": "Location where the database will be initialized.",
-     "required": false
-    },
-    "PGHOST": {
-     "defaultValue": "${{RAILWAY_PRIVATE_DOMAIN}}",
-     "description": "Railway Private Domain Name.",
-     "required": false
-    },
-    "PGPORT": {
-     "defaultValue": "5432",
-     "description": "Port to connect to Postgres.",
-     "required": false
-    },
-    "PGUSER": {
-     "defaultValue": "${{ POSTGRES_USER }}",
-     "description": "Required variable for Data panel.",
-     "required": false
-    },
-    "PGDATABASE": {
-     "defaultValue": "${{POSTGRES_DB}}",
-     "description": "Required variable for the data panel.",
-     "required": false
-    },
-    "PGPASSWORD": {
-     "defaultValue": "${{POSTGRES_PASSWORD}}",
-     "description": "Required variable for Data panel.",
-     "required": false
-    },
-    "POSTGRES_DB": {
-     "defaultValue": "railway",
-     "description": "Default database created when image is started.",
-     "required": false
-    },
-    "DATABASE_URL": {
-     "defaultValue": "postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}",
-     "description": "URL to connect to Postgres database.",
-     "required": false
-    },
-    "POSTGRES_USER": {
-     "defaultValue": "postgres",
-     "description": "User to connect to Postgres DB.",
-     "required": false
-    },
-    "SSL_CERT_DAYS": {
-     "defaultValue": "820",
-     "description": "SSL certificate expiry in days.",
-     "required": false
-    },
-    "POSTGRES_PASSWORD": {
-     "defaultValue": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}",
-     "description": "Password to connect to DB.",
-     "required": false
-    },
-    "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
-     "defaultValue": "60",
-     "description": "Allow Postgres to cleanly shut down.",
-     "required": false
-    }
-   }
-  },
-  "Redis": {
-   "icon": "https://cdn.sanity.io/images/sy1jschh/production/0ce0bfdcfbdbf69662b1116671f97c2dd788b655-157x157.svg",
-   "source": {
-    "image": "redis:8.2"
-   },
-   "startCommand": "/bin/sh -c \"rm -rf $RAILWAY_VOLUME_MOUNT_PATH/lost+found/ && exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --save 60 1 --dir $RAILWAY_VOLUME_MOUNT_PATH\"",
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": {
-    "mountPath": "/data"
-   },
-   "variables": {
-    "REDISHOST": {
-     "defaultValue": "${{RAILWAY_PRIVATE_DOMAIN}}",
-     "description": "Private network hostname of the Redis service, only resolvable from services in the same environment.",
-     "required": false
-    },
-    "REDISPORT": {
-     "defaultValue": "6379",
-     "description": "Port that Redis listens on.",
-     "required": false
-    },
-    "REDISUSER": {
-     "defaultValue": "default",
-     "description": "Username for authenticating with Redis.",
-     "required": false
-    },
-    "REDIS_URL": {
-     "defaultValue": "redis://${{ REDISUSER }}:${{ REDIS_PASSWORD }}@${{ REDISHOST }}:${{ REDISPORT }}",
-     "description": "Connection string for connecting to Redis using the private network.",
-     "required": false
-    },
-    "REDISPASSWORD": {
-     "defaultValue": "${{REDIS_PASSWORD}}",
-     "description": "Alias of REDIS_PASSWORD for clients that expect the unseparated name.",
-     "required": false
-    },
-    "REDIS_PASSWORD": {
-     "defaultValue": "${{ secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\") }}",
-     "description": "Randomly generated password for authenticating with Redis.",
-     "required": false
-    }
-   }
-  },
-  "RabbitMQ": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/rabbitmq.svg",
-   "source": {
-    "image": "rabbitmq:3.13.7-management-alpine"
-   },
-   "startCommand": null,
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "ON_FAILURE",
-   "restartPolicyMaxRetries": 10,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": {
-    "mountPath": "/var/lib/rabbitmq"
-   },
-   "variables": {
-    "RABBITMQ_DEFAULT_USER": {
-     "defaultValue": "plane",
-     "description": "Broker user created on first boot.",
-     "required": false
-    },
-    "RABBITMQ_DEFAULT_PASS": {
-     "defaultValue": "${{secret(32)}}",
-     "description": "Broker password (generated).",
-     "required": false
-    },
-    "RABBITMQ_DEFAULT_VHOST": {
-     "defaultValue": "plane",
-     "description": "Broker virtual host.",
-     "required": false
-    },
-    "RABBITMQ_NODENAME": {
-     "defaultValue": "rabbit@localhost",
-     "description": "Fixed node name so the data on the volume survives redeploys (container hostnames change).",
-     "required": false
-    },
-    "RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS": {
-     "defaultValue": "+S 2:2 +SDio 2",
-     "description": "Limit Erlang schedulers to 2 (the VM otherwise sizes itself to the host's CPU count).",
-     "required": false
-    },
-    "AMQP_URL": {
-     "defaultValue": "amqp://${{RABBITMQ_DEFAULT_USER}}:${{RABBITMQ_DEFAULT_PASS}}@${{RAILWAY_PRIVATE_DOMAIN}}:5672/${{RABBITMQ_DEFAULT_VHOST}}",
-     "description": "Connection string for Celery (private network).",
-     "required": false
-    }
-   }
-  },
-  "bucket-cors": {
-   "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/aws.svg",
-   "source": {
-    "image": "amazon/aws-cli:2.37.12"
-   },
-   "startCommand": "/bin/sh -c \"aws s3api put-bucket-cors --bucket $BUCKET_NAME --endpoint-url $S3_ENDPOINT --region $S3_REGION --cors-configuration \\\"$CORS_CONFIGURATION\\\" && echo 'Bucket CORS configured for' $PUBLIC_ORIGIN\"",
-   "preDeployCommand": null,
-   "healthcheckPath": null,
-   "healthcheckTimeout": null,
-   "restartPolicyType": "NEVER",
-   "restartPolicyMaxRetries": null,
-   "numReplicas": 1,
-   "cronSchedule": null,
-   "publicDomain": false,
-   "targetPort": null,
-   "tcpProxy": null,
-   "volume": null,
-   "variables": {
-    "AWS_ACCESS_KEY_ID": {
-     "defaultValue": "${{Bucket.ACCESS_KEY_ID}}",
-     "description": "Bucket access key.",
-     "required": false
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-     "defaultValue": "${{Bucket.SECRET_ACCESS_KEY}}",
-     "description": "Bucket secret key.",
-     "required": false
-    },
-    "BUCKET_NAME": {
-     "defaultValue": "${{Bucket.BUCKET}}",
-     "description": "Bucket to configure.",
-     "required": false
-    },
-    "S3_ENDPOINT": {
-     "defaultValue": "${{Bucket.ENDPOINT}}",
-     "description": "Bucket S3 endpoint.",
-     "required": false
-    },
-    "S3_REGION": {
-     "defaultValue": "${{Bucket.REGION}}",
-     "description": "Bucket region.",
-     "required": false
-    },
-    "PUBLIC_ORIGIN": {
-     "defaultValue": "https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}",
-     "description": "Plane's public origin (for the log line).",
-     "required": false
-    },
-    "CORS_CONFIGURATION": {
-     "defaultValue": "{\"CORSRules\":[{\"AllowedOrigins\":[\"https://${{proxy.RAILWAY_PUBLIC_DOMAIN}}\"],\"AllowedMethods\":[\"GET\",\"HEAD\",\"PUT\",\"POST\"],\"AllowedHeaders\":[\"*\"],\"ExposeHeaders\":[\"ETag\"],\"MaxAgeSeconds\":3600}]}",
-     "description": "CORS rule letting browsers on Plane's domain upload to / read from the bucket with presigned URLs. Add custom domains to AllowedOrigins and redeploy this service.",
-     "required": false
-    }
-   }
-  }
- },
- "buckets": [
-  "Bucket"
- ]
+  "buckets": [
+    "Bucket"
+  ]
 }
