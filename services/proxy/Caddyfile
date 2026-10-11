@@ -1,0 +1,64 @@
+# Plane single-origin router for Railway.
+#
+# Railway gives one public domain per service, but Plane serves five apps from
+# one origin (web, admin, space, live, api). This Caddy instance owns the public
+# domain and forwards each path prefix to the matching private service, the same
+# routing table Plane's own proxy uses in docker-compose.
+#
+# Upstream addresses come from environment variables (set in the template);
+# the defaults below are the Railway private DNS names of the template services.
+# Caddy resolves them per connection, so it can boot before the upstreams.
+
+{
+	admin off
+	persist_config off
+	auto_https off
+
+	servers {
+		# Railway's edge terminates TLS and sets X-Forwarded-*; trust it so that
+		# X-Forwarded-Proto=https reaches Django (secure cookies, CSRF).
+		trusted_proxies static private_ranges 100.0.0.0/8
+		client_ip_headers X-Forwarded-For X-Real-IP
+		max_header_size 25MB
+	}
+}
+
+:{$PORT:8080} {
+	request_body {
+		max_size {$FILE_SIZE_LIMIT:5242880}
+	}
+
+	redir /spaces /spaces/ permanent
+	redir /god-mode /god-mode/ permanent
+
+	# Liveness of the router itself (used as the Railway healthcheck).
+	handle /proxy-health {
+		respond "OK" 200
+	}
+
+	# Public "spaces" (published boards/pages).
+	handle /spaces/* {
+		reverse_proxy {$SPACE_UPSTREAM:space.railway.internal:3000}
+	}
+
+	# Instance admin ("god mode").
+	handle /god-mode/* {
+		reverse_proxy {$ADMIN_UPSTREAM:admin.railway.internal:3000}
+	}
+
+	# Real-time collaborative editing (WebSocket).
+	handle /live/* {
+		reverse_proxy {$LIVE_UPSTREAM:live.railway.internal:3000}
+	}
+
+	# Django API, auth flows and API static files.
+	@api path /api/* /auth/* /static/*
+	handle @api {
+		reverse_proxy {$API_UPSTREAM:api.railway.internal:8000}
+	}
+
+	# Everything else: the main web app.
+	handle {
+		reverse_proxy {$WEB_UPSTREAM:web.railway.internal:3000}
+	}
+}
